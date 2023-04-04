@@ -1,3 +1,6 @@
+variable "Authorization_string" {
+  type = string
+}
 terraform {
   required_providers {
     bigip = {
@@ -9,8 +12,9 @@ terraform {
 provider "bigip" {
     address = "192.168.88.101"
     username = "admin"
-    password = "$18307191Cz"
+    password = var.Authorization_string
 }
+
 resource "bigip_as3"  "as3-example1" {
      as3_json = file("example.json")
  }
