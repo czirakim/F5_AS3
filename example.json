@@ -6,34 +6,56 @@
     "declaration": {
         "class": "ADC",
         "schemaVersion": "3.0.0",
-        "id": "example-declaration-01",
-        "label": "Sample 1",
-        "remark": "Simple HTTP application with round robin pool",
-        "Sample_01": {
+        "id": "${TENANT}-declaration",
+        "label": "${TENANT}",
+        "remark": "HTTP application",
+        "updateMode" :"selective",
+        "${TENANT}": {
             "class": "Tenant",
             "defaultRouteDomain": 0,
             "Application_1": {
                 "class": "Application",
-                "template": "http",
-            "serviceMain": {
+                "template": "Service_Generic",
+            "${VIP_NAME}": {
                 "class": "Service_HTTP",
                 "virtualAddresses": [
-                    "10.0.2.10"
+                    "${VIP}"
                 ],
-                "pool": "web_pool"
+                "virtualPort": 80,
+                "persistenceMethods": [
+                    "${PERSISTANCE}"
+                ],
+                "profileTCP": "normal",
+                "profileHTTP": {
+                    "use": "${HTTP_PROFILE}"
                 },
-                "web_pool": {
+                "snat": "auto",
+                "iRules": [
+                    "${IRULE_NAME}"
+                  ],
+                "pool": "${POOL}"
+                },
+                "${IRULE_NAME}": {
+                    "class": "iRule",
+                    "remark": "choose private pool based URI",
+                    "iRule": {
+                        "url": "${IRULE}"
+                    }
+                  },
+                "${HTTP_PROFILE}":{
+                    "class": "HTTP_Profile",
+                    "xForwardedFor": true
+                },
+                "${POOL}": {
                     "class": "Pool",
+                    "loadBalancingMode":"${LB_MODE}",
                     "monitors": [
-                        "http"
+                        "${MONITOR}"
                     ],
                     "members": [
                         {
-                            "servicePort": 80,
-                            "serverAddresses": [
-                                "192.0.1.100",
-                                "192.0.1.111"
-                            ]
+                            "servicePort": ${SERVICEPORT},
+                            "serverAddresses": ${MEMBERS}                                               
                         }
                     ]
                 }

@@ -1,6 +1,3 @@
-variable "Authorization_string" {
-  type = string
-}
 terraform {
   required_providers {
     bigip = {
@@ -10,11 +7,27 @@ terraform {
   }
 }
 provider "bigip" {
-    address = "192.168.88.101"
+    address = var.IP_ADDRESS
     username = "admin"
     password = var.Authorization_string
 }
-
-resource "bigip_as3"  "as3-example1" {
-     as3_json = file("example.json")
- }
+data template_file "init" {
+  template = file("example.json")
+  vars = {
+    TENANT = var.TENANT
+    VIP_NAME = var.VIP_NAME
+    VIP = var.VIP
+    HTTP_PROFILE= var.HTTP_PROFILE
+    IRULE_NAME= var.IRULE_NAME
+    IRULE= var.IRULE
+    POOL = var.POOL
+    LB_MODE = var.LB_MODE
+    PERSISTANCE = var.PERSISTANCE
+    MONITOR = var.MONITOR
+    MEMBERS = jsonencode(var.MEMBERS)
+    SERVICEPORT = var.SERVICEPORT
+    }
+  }
+resource "bigip_as3"  "as3-deploy-tenant" {
+     as3_json = data.template_file.init.rendered
+}
