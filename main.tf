@@ -12,7 +12,7 @@ provider "bigip" {
     password = var.Authorization_string
 }
 data template_file "init" {
-  template = file("example.json")
+  template = file("tenant_template.json")
   vars = {
     TENANT = var.TENANT
     VIP_NAME = var.VIP_NAME

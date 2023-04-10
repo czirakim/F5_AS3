@@ -1,11 +1,11 @@
-// Tenat1 config variables
+// Tenant 1 config variables
 TENANT = "Tenant_01"
 VIP_NAME = "service_01"
 VIP = "10.0.0.131"
 HTTP_PROFILE = "http-xForwardedFor"
 PERSISTANCE = "cookie"
 IRULE_NAME = "rule1"
-IRULE = "https://raw.githubusercontent.com/czirakim/F5_irules/main/rule1.irule"
+IRULE = "https://raw.githubusercontent.com/czirakim/F5_AS3/master/rule1.irule"
 POOL1 = "webpool"
 POOL2 = "abc_pool"
 LB_MODE = "least-connections-member"
