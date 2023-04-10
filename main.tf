@@ -20,11 +20,13 @@ data template_file "init" {
     HTTP_PROFILE= var.HTTP_PROFILE
     IRULE_NAME= var.IRULE_NAME
     IRULE= var.IRULE
-    POOL = var.POOL
+    POOL1 = var.POOL1
+    POOL2 = var.POOL2
     LB_MODE = var.LB_MODE
     PERSISTANCE = var.PERSISTANCE
     MONITOR = var.MONITOR
-    MEMBERS = jsonencode(var.MEMBERS)
+    MEMBERS_1 = jsonencode(var.MEMBERS_1)
+    MEMBERS_2 = jsonencode(var.MEMBERS_2)
     SERVICEPORT = var.SERVICEPORT
     }
   }

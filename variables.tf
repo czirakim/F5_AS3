@@ -22,7 +22,10 @@ variable "IRULE_NAME" {
 variable "IRULE" {
   type = string
 }
-variable "POOL" {
+variable "POOL1" {
+  type = string
+}
+variable "POOL2" {
   type = string
 }
 variable "LB_MODE" {
@@ -34,7 +37,10 @@ variable "PERSISTANCE" {
 variable "MONITOR" {
   type = string
 }
-variable "MEMBERS" {
+variable "MEMBERS_1" {
+  type = list
+}
+variable "MEMBERS_2" {
   type = list
 }
 variable "SERVICEPORT" {

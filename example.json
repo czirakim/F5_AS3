@@ -33,7 +33,7 @@
                 "iRules": [
                     "${IRULE_NAME}"
                   ],
-                "pool": "${POOL}"
+                "pool": "${POOL1}"
                 },
                 "${IRULE_NAME}": {
                     "class": "iRule",
@@ -46,7 +46,7 @@
                     "class": "HTTP_Profile",
                     "xForwardedFor": true
                 },
-                "${POOL}": {
+                "${POOL1}": {
                     "class": "Pool",
                     "loadBalancingMode":"${LB_MODE}",
                     "monitors": [
@@ -55,7 +55,20 @@
                     "members": [
                         {
                             "servicePort": ${SERVICEPORT},
-                            "serverAddresses": ${MEMBERS}                                               
+                            "serverAddresses": ${MEMBERS_1}                                               
+                        }
+                    ]
+                },
+                "${POOL2}": {
+                    "class": "Pool",
+                    "loadBalancingMode":"${LB_MODE}",
+                    "monitors": [
+                        "${MONITOR}"
+                    ],
+                    "members": [
+                        {
+                            "servicePort": ${SERVICEPORT},
+                            "serverAddresses": ${MEMBERS_2}                                               
                         }
                     ]
                 }
