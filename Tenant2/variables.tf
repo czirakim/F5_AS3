@@ -19,9 +19,6 @@ variable "HTTP_PROFILE" {
 variable "IRULE_NAME" {
   type = string
 }
-variable "IRULE" {
-  type = string
-}
 variable "POOL1" {
   type = string
 }

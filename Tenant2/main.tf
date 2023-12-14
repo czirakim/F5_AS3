@@ -18,8 +18,6 @@ data template_file "init" {
     VIP_NAME = var.VIP_NAME
     VIP = var.VIP
     HTTP_PROFILE= var.HTTP_PROFILE
-    IRULE_NAME= var.IRULE_NAME
-    IRULE= var.IRULE
     POOL1 = var.POOL1
     LB_MODE = var.LB_MODE
     PERSISTANCE = var.PERSISTANCE
