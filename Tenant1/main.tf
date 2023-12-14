@@ -28,8 +28,6 @@ data template_file "init" {
     MEMBERS_1 = jsonencode(var.MEMBERS_1)
     MEMBERS_2 = jsonencode(var.MEMBERS_2)
     SERVICEPORT = var.SERVICEPORT
-    CERT_URL = var.CERT_URL
-    KEY_URL = var.KEY_URL
     }
   }
 resource "bigip_as3" "as3-tenant" {
