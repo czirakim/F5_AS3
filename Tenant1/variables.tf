@@ -46,3 +46,9 @@ variable "MEMBERS_2" {
 variable "SERVICEPORT" {
   type = number
 }
+variable "CERT_URL" {
+  type = string
+}
+variable "KEY_URL" {
+  type = string
+}

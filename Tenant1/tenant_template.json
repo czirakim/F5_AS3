@@ -13,39 +13,9 @@
         "${TENANT}": {
             "class": "Tenant",
             "defaultRouteDomain": 0,
-            "Application_1": {
+            "Shared": {
                 "class": "Application",
-                "template": "Service_Generic",
-            "${VIP_NAME}": {
-                "class": "Service_HTTP",
-                "virtualAddresses": [
-                    "${VIP}"
-                ],
-                "virtualPort": 80,
-                "persistenceMethods": [
-                    "${PERSISTANCE}"
-                ],
-                "profileTCP": "normal",
-                "profileHTTP": {
-                    "use": "${HTTP_PROFILE}"
-                },
-                "snat": "auto",
-                "iRules": [
-                    "${IRULE_NAME}"
-                  ],
-                "pool": "${POOL1}"
-                },
-                "${IRULE_NAME}": {
-                    "class": "iRule",
-                    "remark": "choose private pool based URI",
-                    "iRule": {
-                        "url": "${IRULE}"
-                    }
-                  },
-                "${HTTP_PROFILE}":{
-                    "class": "HTTP_Profile",
-                    "xForwardedFor": true
-                },
+                "template": "shared",
                 "${POOL1}": {
                     "class": "Pool",
                     "loadBalancingMode":"${LB_MODE}",
@@ -71,7 +41,78 @@
                             "serverAddresses": ${MEMBERS_2}                                               
                         }
                     ]
-                }
+                },
+                "${IRULE_NAME}": {
+                    "class": "iRule",
+                    "remark": "choose private pool based URI",
+                    "iRule": {
+                        "url": "${IRULE}"
+                    }
+                  }
+            },
+            "Application_1": {
+                "class": "Application",
+                "template": "Service_Generic",
+            "${VIP_NAME}": {
+                "class": "Service_HTTP",
+                "virtualAddresses": [
+                    "${VIP}"
+                ],
+                "virtualPort": 80,
+                "persistenceMethods": [
+                    "${PERSISTANCE}"
+                ],
+                "profileTCP": "normal",
+                "profileHTTP": {
+                    "use": "${HTTP_PROFILE}"
+                },
+                "snat": "auto",
+                "iRules": [
+                    "${IRULE_NAME}"
+                  ],
+                "pool": "${POOL1}"
+                },
+                "${HTTP_PROFILE}":{
+                    "class": "HTTP_Profile",
+                    "xForwardedFor": true
+                },                
+            "${VIP_NAME}": {
+                "class": "Service_HTTPS",
+                "virtualAddresses": [
+                   "${VIP}"
+                    ],
+                "virtualPort": 443,
+                "persistenceMethods": [
+                    "${PERSISTANCE}"
+                    ],
+                "profileTCP": "normal",
+                "profileHTTP": {
+                    "use": "${HTTP_PROFILE}"
+                    },
+                "snat": "auto",
+                "iRules": [
+                        "${IRULE_NAME}"
+                      ],
+                "pool": "${POOL1}",
+                "serverTLS": "webtls"
+                },
+                "webtls": {
+                    "class": "TLS_Server",
+                    "cipherGroup": "f5-secure",
+                    "certificates": [{
+                      "certificate": "${VIP_NAME}-cert"
+                    }]
+                },
+                "${VIP_NAME}-cert": {
+                    "class": "Certificate",
+                    "remark": "in practice using a passphrase is recommended",
+                    "certificate": {
+                        "url": "${CERT_URL}"
+                    },
+                    "privateKey": {
+                        "url": "${KEY_URL}"
+                    }
+                }                
             }
         }
     }
