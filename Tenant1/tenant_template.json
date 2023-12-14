@@ -98,7 +98,6 @@
                 },
                 "webtls": {
                     "class": "TLS_Server",
-                    "cipherGroup": "f5-secure",
                     "certificates": [{
                       "certificate": "${VIP_NAME}-cert"
                     }]
