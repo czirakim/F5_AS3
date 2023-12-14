@@ -1,5 +1,0 @@
-when HTTP_REQUEST { if { ([HTTP::host] == "www.xyzabc.com") and ([string tolower [HTTP::uri]] contains "/test_abc") }
-        { 
-        pool abc_pool
-        }  
- }

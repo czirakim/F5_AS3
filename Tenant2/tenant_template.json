@@ -1,0 +1,55 @@
+{
+    "$schema": "https://raw.githubusercontent.com/F5Networks/f5-appsvcs-extension/master/schema/latest/as3-schema.json",
+    "class": "AS3",
+    "action": "deploy",
+    "persist": true,
+    "declaration": {
+        "class": "ADC",
+        "schemaVersion": "3.0.0",
+        "id": "${TENANT}-declaration",
+        "label": "${TENANT}",
+        "remark": "HTTP application",
+        "updateMode" :"selective",
+        "${TENANT}": {
+            "class": "Tenant",
+            "defaultRouteDomain": 0,
+            "Application_2": {
+                "class": "Application",
+                "template": "Service_Generic",
+            "${VIP_NAME}": {
+                "class": "Service_HTTP",
+                "virtualAddresses": [
+                    "${VIP}"
+                ],
+                "virtualPort": 80,
+                "persistenceMethods": [
+                    "${PERSISTANCE}"
+                ],
+                "profileTCP": "normal",
+                "profileHTTP": {
+                    "use": "${HTTP_PROFILE}"
+                },
+                "snat": "auto",
+                "pool": "${POOL1}"
+                },                
+                "${HTTP_PROFILE}":{
+                    "class": "HTTP_Profile",
+                    "xForwardedFor": true
+                },
+                "${POOL1}": {
+                    "class": "Pool",
+                    "loadBalancingMode":"${LB_MODE}",
+                    "monitors": [
+                        "${MONITOR}"
+                    ],
+                    "members": [
+                        {
+                            "servicePort": ${SERVICEPORT},
+                            "serverAddresses": ${MEMBERS_1}                                               
+                        }
+                    ]
+                }                
+            }
+        }
+    }
+}
