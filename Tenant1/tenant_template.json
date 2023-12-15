@@ -118,9 +118,8 @@
                       "webcert": {
                         "class": "Certificate",
                         "remark": "in practice we recommend using a passphrase",
-                        "certificate": "",                        
-                        "privateKey": "",
-                        "
+                        "certificate": { "url": "https://raw.githubusercontent.com/czirakim/F5_AS3/master/Tenant1/certs/acme.com"},                        
+                        "privateKey": { "url": "https://raw.githubusercontent.com/czirakim/F5_AS3/master/Tenant1/certs/acme.com.key"}                        
                     }
             }
         }
