@@ -30,6 +30,40 @@
                         }
                     ]
                 },
+                "${HTTP_PROFILE}":{
+                    "class": "HTTP_Profile",
+                    "xForwardedFor": true
+                },
+                "${IRULE_NAME}": {
+                    "class": "iRule",
+                    "remark": "choose private pool based URI",
+                    "iRule": {
+                        "url": "${IRULE}"
+                    }
+                }                               
+            },
+            "Application_1": {
+                "class": "Application",
+                "template": "Service_Generic",
+                "${SERVICE1}": {
+                    "class": "Service_HTTP",
+                    "virtualAddresses": [
+                        "${VIP}"
+                    ],
+                    "virtualPort": 80,
+                    "persistenceMethods": [
+                        "${PERSISTANCE}"
+                    ],
+                    "profileTCP": "normal",
+                    "profileHTTP": {
+                        "use": "/${TENANT}/Shared/${HTTP_PROFILE}"
+                    },
+                    "snat": "auto",
+                    "iRules": [
+                        { "use": "/${TENANT}/Shared/${IRULE_NAME}"}
+                    ],
+                    "pool": "/${TENANT}/Shared/${POOL1}"
+                },                
                 "${POOL2}": {
                     "class": "Pool",
                     "loadBalancingMode":"${LB_MODE}",
@@ -42,41 +76,52 @@
                             "serverAddresses": ${MEMBERS_2}                                               
                         }
                     ]
-                }                
-            },
-            "Application_1": {
-                "class": "Application",
-                "template": "Service_Generic",
-                "${VIP_NAME}": {
-                    "class": "Service_HTTP",
+                },
+                "${SERVICE2}": {
+                    "class": "Service_HTTPS",
                     "virtualAddresses": [
-                        "${VIP}"
-                    ],
-                    "virtualPort": 80,
+                        "${VIP2}"
+                        ],
+                    "virtualPort": 443,
                     "persistenceMethods": [
                         "${PERSISTANCE}"
-                    ],
+                        ],
                     "profileTCP": "normal",
                     "profileHTTP": {
-                        "use": "${HTTP_PROFILE}"
-                    },
+                        "use": "/${TENANT}/Shared/${HTTP_PROFILE}"
+                        },
                     "snat": "auto",
                     "iRules": [
-                        "${IRULE_NAME}"
+                        { "use": "/${TENANT}/Shared/${IRULE_NAME}"}
                     ],
-                    "pool": "/Tenant_01/Shared/webpool"
-                },
-                "${HTTP_PROFILE}":{
-                    "class": "HTTP_Profile",
-                    "xForwardedFor": true
-                },
-                "${IRULE_NAME}": {
-                    "class": "iRule",
-                    "remark": "choose private pool based URI",
-                    "iRule": {
-                        "url": "${IRULE}"
+                    "pool": "${S2_POOL1}",
+                    "serverTLS": "webtls"
+                    },
+                    "${S2_POOL1}": {
+                        "class": "Pool",
+                        "monitors": [
+                            "${S2_MONITOR}"
+                        ],
+                        "members": [
+                            {
+                                "servicePort": ${SERVICEPORT},
+                                "serverAddresses": ${S2_MEMBERS_1}                                               
+                            }
+                        ]
+                    },                                       
+                    "webtls": {
+                        "class": "TLS_Server",
+                        "certificates": [{
+                          "certificate": "webcert"
+                        }]
+                    },
+                      "webcert": {
+                        "class": "Certificate",
+                        "remark": "in practice we recommend using a passphrase",
+                        "certificate": "",                        
+                        "privateKey": "",
+                        "
                     }
-                  }                            
             }
         }
     }

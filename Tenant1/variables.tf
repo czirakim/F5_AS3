@@ -7,7 +7,7 @@ variable "IP_ADDRESS" {
 variable "TENANT" {
   type = string
 }
-variable "VIP_NAME" {
+variable "SERVICE1" {
   type = string
 }
 variable "VIP" {

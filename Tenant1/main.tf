@@ -15,8 +15,10 @@ data template_file "init" {
   template = file("tenant_template.json")
   vars = {
     TENANT = var.TENANT
-    VIP_NAME = var.VIP_NAME
+    SERVICE1 = var.SERVICE1
+    SERVICE2 = var.SERVICE2
     VIP = var.VIP
+    VIP2 = var.VIP2
     HTTP_PROFILE= var.HTTP_PROFILE
     IRULE_NAME= var.IRULE_NAME
     IRULE= var.IRULE
@@ -28,6 +30,9 @@ data template_file "init" {
     MEMBERS_1 = jsonencode(var.MEMBERS_1)
     MEMBERS_2 = jsonencode(var.MEMBERS_2)
     SERVICEPORT = var.SERVICEPORT
+    S2_POOL1 = var.S2_POOL1
+    S2_MONITOR = var.S2_MONITOR
+    S2_MEMBERS_1 = jsonencode(var.S2_MEMBERS_1)
     }
   }
 resource "bigip_as3" "as3-tenant" {

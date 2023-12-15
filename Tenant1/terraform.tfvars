@@ -1,6 +1,8 @@
 // Tenant 1 config variables
+//
+// Service 1
 TENANT = "Tenant_01"
-VIP_NAME = "service_01"
+SERVICE1 = "service_01"
 VIP = "10.0.0.131"
 HTTP_PROFILE = "http-xForwardedFor"
 PERSISTANCE = "cookie"
@@ -13,4 +15,10 @@ MONITOR = "http"
 MEMBERS_1 = ["1.1.1.1","9.9.9.9"]
 MEMBERS_2 = ["8.8.8.8","8.8.4.4"]
 SERVICEPORT = 8080
-
+//
+// Service2
+SERVICE2= "service_02"
+VIP2 = "10.0.0.132"
+S2_POOL1 = "service_02_webpool"
+S2_MONITOR = "http"
+S2_MEMBERS_1 = ["2.2.2.2","10.9.9.9"]
