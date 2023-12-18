@@ -12,7 +12,7 @@ POOL1 = "webpool"
 POOL2 = "abc_pool"
 LB_MODE = "least-connections-member"
 MONITOR = "http"
-MEMBERS_1 = ["1.1.1.1","9.9.9.9"]
+MEMBERS_1 = ["1.1.1.1","10.9.9.9"]
 MEMBERS_2 = ["8.8.8.8","8.8.4.4"]
 SERVICEPORT = 8080
 //
@@ -21,4 +21,4 @@ SERVICE2= "service_02"
 VIP2 = "10.0.0.132"
 S2_POOL1 = "service_02_webpool"
 S2_MONITOR = "http"
-S2_MEMBERS_1 = ["2.2.2.2","10.9.9.9"]
+S2_MEMBERS_1 = ["1.1.1.2","9.9.9.9"]

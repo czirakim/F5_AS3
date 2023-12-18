@@ -86,7 +86,10 @@
                     "persistenceMethods": [
                         "${PERSISTANCE}"
                         ],
-                    "profileTCP": "normal",
+                    "profileTCP": { 
+                        "egress": "wan",
+                        "ingress": "lan"
+                        },
                     "profileHTTP": {
                         "use": "/${TENANT}/Shared/${HTTP_PROFILE}"
                         },
