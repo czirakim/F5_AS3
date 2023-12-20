@@ -13,14 +13,12 @@ resource "tls_self_signed_cert" "example" {
 
   validity_period_hours =  8766 //1 year
 
-  dns_names = ["example.com", "example.net"]
-  
+  dns_names = ["example.com", "example.net"]  
 
   allowed_uses = [
     "key_encipherment",
     "digital_signature",
     "server_auth",
   ]
-
 }
 
