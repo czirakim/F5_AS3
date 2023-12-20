@@ -22,3 +22,4 @@ VIP2 = "10.0.0.132"
 S2_POOL1 = "service_02_webpool"
 S2_MONITOR = "http"
 S2_MEMBERS_1 = ["1.1.1.2","9.9.9.9"]
+

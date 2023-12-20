@@ -1,5 +1,6 @@
 variable "Authorization_string" {
   type = string
+  sensitive = true
 }
 variable "IP_ADDRESS" {
   type = string

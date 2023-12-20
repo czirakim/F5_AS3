@@ -11,6 +11,7 @@ provider "bigip" {
     username = "admin"
     password = var.Authorization_string
 }
+
 data template_file "init" {
   template = file("tenant_template.json")
   vars = {
@@ -33,8 +34,10 @@ data template_file "init" {
     S2_POOL1 = var.S2_POOL1
     S2_MONITOR = var.S2_MONITOR
     S2_MEMBERS_1 = jsonencode(var.S2_MEMBERS_1)
+    cert = local.cert
+    key = local.key
     }
   }
 resource "bigip_as3" "as3-tenant" {
-     as3_json = data.template_file.init.rendered
-     }
+    as3_json = data.template_file.init.rendered
+  }
